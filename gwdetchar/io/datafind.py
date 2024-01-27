@@ -193,7 +193,7 @@ def get_data(channel, start, end, frametype=None, source=None,
         try:  # locate frame files
             ifo = re.search('[A-Z]1', frametype).group(0)
             obs = ifo[0]
-            on_gaps = kwargs.get('on_gaps', 'error')
+            on_gaps = kwargs.pop('on_gaps', 'error')
             source = io_datafind.find_urls(obs, frametype, start, end,
                                            on_gaps=on_gaps, **kwargs)
         except AttributeError:
