@@ -29,7 +29,8 @@ from gwpy.io.cache import (cache_segments, sieve as sieve_cache)
 from gwpy.segments import (DataQualityFlag, Segment, SegmentList)
 from gwpy.table import EventTable
 
-from . import (const, cli)
+from . import cli
+from .const import IFO
 from .daq import find_crossings
 from .io.datafind import get_data
 from .utils import table_from_times
@@ -60,8 +61,8 @@ def create_parser():
     cli.add_nproc_option(parser)
     cli.add_frametype_option(
         parser,
-        required=const.IFO is None,
-        default=const.IFO is not None and '%s_R' % const.IFO,
+        required=IFO is None,
+        default=IFO is not None and f'{IFO}_R',
     )
 
     # optional arguments
@@ -122,7 +123,6 @@ def main(args=None):
             args.state_flag,
             int(args.gpsstart),
             int(args.gpsend),
-            url=const.DEFAULT_SEGMENT_SERVER,
         )
         statea = state.active
     else:
