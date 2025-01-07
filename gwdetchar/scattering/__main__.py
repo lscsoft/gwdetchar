@@ -47,7 +47,6 @@ from gwpy.table import EventTable
 from gwpy.table.filters import in_segmentlist
 
 from .. import cli
-from ..const import DEFAULT_SEGMENT_SERVER
 from ..io import html as htmlio
 from ..io.datafind import get_data
 from ..omega import batch
@@ -285,7 +284,6 @@ def main(args=None):
     if args.state_flag is not None:
         state = DataQualityFlag.query(
             args.state_flag, int(args.gpsstart), int(args.gpsend),
-            url=DEFAULT_SEGMENT_SERVER,
         ).coalesce()
         statea = []
         padding = args.segment_start_pad + args.segment_end_pad

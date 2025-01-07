@@ -31,7 +31,8 @@ from gwpy.segments import (Segment, SegmentList,
                            DataQualityFlag, DataQualityDict)
 
 from . import core
-from .. import (cli, const)
+from .. import cli
+from ..const import IFO
 from ..io import html as htmlio
 
 from matplotlib import use
@@ -64,8 +65,8 @@ def create_parser():
     # optional arguments
     cli.add_frametype_option(
         parser,
-        required=const.IFO is None,
-        default=const.IFO is not None and '%s_R' % const.IFO,
+        required=IFO is None,
+        default=IFO is not None and f'{IFO}_R',
     )
     cli.add_nproc_option(parser)
     parser.add_argument(
@@ -143,8 +144,7 @@ def main(args=None):
     span = Segment(args.gpsstart, args.gpsend)
     if args.state_flag:
         state = DataQualityFlag.query(args.state_flag, int(args.gpsstart),
-                                      int(args.gpsend),
-                                      url=const.DEFAULT_SEGMENT_SERVER)
+                                      int(args.gpsend))
         for i, seg in enumerate(state.active):
             state.active[i] = type(seg)(seg[0], seg[1]-args.pad_state_end)
         segs = state.active.coalesce()

@@ -24,8 +24,6 @@ import warnings
 from urllib.error import HTTPError
 from json.decoder import JSONDecodeError
 
-from ..const import DEFAULT_SEGMENT_SERVER
-
 from gwpy.io import gwf as io_gwf
 from gwpy.io import datafind as io_datafind
 from gwpy.segments import (Segment, DataQualityFlag)
@@ -65,8 +63,7 @@ def check_flag(flag, gpstime, duration, pad):
     end = gpstime + duration/2. + pad
     seg = Segment(start, end)
     # query for state segments
-    active = DataQualityFlag.query(flag, start, end,
-                                   url=DEFAULT_SEGMENT_SERVER).active
+    active = DataQualityFlag.query(flag, start, end).active
     # check that state flag is active during the entire analysis
     if (not active.intersects_segment(seg)) or (abs(active[0]) < abs(seg)):
         return False

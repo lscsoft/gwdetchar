@@ -30,7 +30,8 @@ from gwpy.io.cache import cache_segments
 from gwpy.segments import (DataQualityFlag, DataQualityDict,
                            Segment, SegmentList)
 
-from . import (cds, cli, const, daq)
+from . import (cds, cli, daq)
+from .const import IFO
 from .io import (html as htmlio)
 from .io.datafind import get_data
 from .utils import table_from_segments
@@ -79,8 +80,8 @@ def create_parser():
     )
     cli.add_frametype_option(
         parser,
-        required=const.IFO is None,
-        default=const.IFO is not None and '%s_R' % const.IFO,
+        required=IFO is None,
+        default=IFO is not None and f'{IFO}_R',
     )
     cli.add_nproc_option(
         parser,)
@@ -198,8 +199,7 @@ def main(args=None):
     # get segments
     if args.state_flag:
         state = DataQualityFlag.query(args.state_flag, int(args.gpsstart),
-                                      int(args.gpsend),
-                                      url=const.DEFAULT_SEGMENT_SERVER)
+                                      int(args.gpsend))
         tmp = type(state.active)()
         for i, seg in enumerate(state.active):
             if abs(seg) < args.segment_end_pad:
