@@ -60,11 +60,9 @@ jobs:
     - name: Configure conda
       uses: conda-incubator/setup-miniconda@v3
       with:
-        auto-update-conda: true
-        channels: conda-forge
+        activate-environment: test
+        miniforge-version: latest
         python-version: ${{ matrix.python-version }}
-        # this is needed for caching to work properly:
-        use-only-tar-bz2: true
 
     - name: Conda info
       run: conda info --all
