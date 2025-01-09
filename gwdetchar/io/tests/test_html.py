@@ -27,7 +27,6 @@ import sys
 
 from getpass import getuser
 from MarkupPy import markup
-from pygments import __version__ as pygments_version
 from pytz import reference
 from unittest import mock
 
@@ -72,34 +71,15 @@ NEW_BOOTSTRAP_PAGE = """<!DOCTYPE HTML>
 TEST_CONFIGURATION = """[section]
 key = value"""
 
-if pygments_version >= "2.14.0":
-    pygments_space_span = '<span style="color: #bbbbbb"> </span>'
-    pygments_output = (
-        '\n'
-        '<span style="color: #687822">key</span>'
-        f'{pygments_space_span}'
-        '<span style="color: #666666">=</span>'
-        f'{pygments_space_span}'
-        '<span style="color: #BA2121">value</span>'
-    )
-elif pygments_version >= "2.11.0":
-    pygments_output = (
-        '<span style="color: #bbbbbb"></span>\n'
-        '<span style="color: #687822">key</span>'
-        '<span style="color: #bbbbbb"> </span>'
-        '<span style="color: #666666">=</span>'
-        '<span style="color: #bbbbbb"> </span>'
-        '<span style="color: #BA2121">value</span>'
-        '<span style="color: #bbbbbb"></span>'
-    )
-    pygments_space_span = ' '
-else:
-    pygments_output = (
-        '\n'
-        '<span style="color: #7D9029">key</span> '
-        '<span style="color: #666666">=</span> '
-        '<span style="color: #BA2121">value</span>'
-    )
+pygments_space_span = '<span style="color: #BBB"> </span>'
+pygments_output = (
+    '\n'
+    '<span style="color: #687822">key</span>'
+    f'{pygments_space_span}'
+    '<span style="color: #666">=</span>'
+    f'{pygments_space_span}'
+    '<span style="color: #BA2121">value</span>'
+)
 
 ABOUT = f"""<div class="row">
 <div class="col-md-12">

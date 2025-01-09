@@ -63,6 +63,7 @@ dynamic = ["version"]
 [project.optional-dependencies]
 test = [
   "flake8",
+  "pygments >=2.19.0",
   "pytest >=3.3.0",
   "pytest-cov >=2.4.0",
 ]
